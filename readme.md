@@ -9,11 +9,12 @@
 ![img](img.png)
 
 - 確定 ubuntu 已安裝 inotifywait : `apt-get install inotify-tools -y`
-- 設定環境變數 `MONITOR_FOLDER`
-- 開啟 monitor.sh, 變更要執行的動作在 `actionJob()`
-	- 預設的 log, 是用來測試用, 可透過 logrotate 進行 backlog & rotate, 參考下方
-- 目前預設控制的事件是 `create` 與 `delete`, 其他控制事件請參考備註
+- 設定環境變數 `MONITOR_FOLDER`, 預設是 `/tmp`, 請查看 monitor.sh
+- 變更要執行的動作在 `actionJob()`
+	- 預設的行為 [當資料夾有異動, 寫入 log] (log 可透過 logrotate 進行 backlog & rotate, 參考下方)
+- 預設控制的事件是 `create` 與 `delete`, 其他控制事件請參考備註
 - Usage : `source monitor.sh --help`
+
 
 # 使用測試
 > 快速使用可用 `docker build -t foo . && docker run --rm -it -v $(pwd):/home --workdir /home foo /bin/bash` 建立環境
@@ -27,7 +28,7 @@
 
 # Remark : 關於 log rotate
 
-- 避免 log 無限制地成長, 可使用 logrotate 進行循環
+- 避免 log 無限制地成長, 可使用 logrotate 進行循環, `apt-get install -y logrotate`
 - 快速使用說明 : https://jhaoheng.github.io/blogpost/ubuntu/log/logrotate/#read-more
 
 > 範例 config, 確定 log 的位置
